@@ -18,3 +18,4 @@ https://developer.android.com/guide/topics/ui/dialogs.html#AddingAList
 
 5. “Show small image” will show the image in a dialog in the same activity.
 
+![Screenshot_20190630-121712](https://user-images.githubusercontent.com/51377429/60399346-37993100-9b31-11e9-971c-4ec2a221c9a3.jpg)
