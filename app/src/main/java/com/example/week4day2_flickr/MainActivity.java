@@ -20,6 +20,8 @@ package com.example.week4day2_flickr;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.week4day2_flickr.model.FlickrResponse;
@@ -31,18 +33,21 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView rvFlickr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        rvFlickr = findViewById(R.id.rvFlickrList);
 
         RetrofitFlickr retrofitFlickr = new RetrofitFlickr();
-        retrofitFlickr.getService().getFlickrResponse("https://api.flickr.com/services/feeds/photos_public.gne?tag=kitten&format=json&nojsoncallback=1")
+        retrofitFlickr.getService().getFlickrResponse
+                ("https://api.flickr.com/services/feeds/photos_public.gne?tag=kitten&format=json&nojsoncallback=1")
                 .enqueue(new Callback<FlickrResponse>() {
                     @Override
                     public void onResponse(Call<FlickrResponse> call, Response<FlickrResponse> response) {
                         FlickrResponse flickrResponse = response.body();
-                        Log.d("TAG", flickrResponse.getTitle());
+                        populateRecyclerView(flickrResponse);
                     }
 
                     @Override
@@ -51,4 +56,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     } // end onCreate
+
+    public void populateRecyclerView(FlickrResponse flickrResponse) {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        FlickrRVAdapter adapter = new FlickrRVAdapter(flickrResponse.getItems());
+        rvFlickr.setLayoutManager(layoutManager);
+        rvFlickr.setAdapter(adapter);
+    }
 }

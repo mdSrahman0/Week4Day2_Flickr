@@ -28,7 +28,9 @@ public class FlickrResponse implements Parcelable
     private String generator;
     @SerializedName("items")
     @Expose
-    private List<Item> items = null;
+
+    //THIS IS WHAT WE WILL NEED IN OUR FlickrRVadapter
+    private List<Item> items;
     public final static Parcelable.Creator<FlickrResponse> CREATOR = new Creator<FlickrResponse>() {
 
 
